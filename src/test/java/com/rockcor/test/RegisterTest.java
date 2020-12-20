@@ -63,9 +63,38 @@ public class RegisterTest {
 	 */
 	@After
 	public void tearDown() throws Exception {
-		//driver.quit();
+		driver.quit();
 	}
-
+	
+	@Test
+	public void loginUser() throws InterruptedException {
+		
+		driver.findElement(HOME_LOC).click();
+		
+		driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+		
+		driver.findElement(LOGIN_USER_LOC).sendKeys(USERNAME);
+		driver.findElement(LOGIN_PASS_LOC).sendKeys(PASSWORD);
+		driver.findElement(LOGIN_BTN).click();
+		
+		driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+		
+		List<WebElement> fonts = driver.findElements(By.tagName("font"));
+		
+		String result = "Thank you for Loggin.";
+		
+		for(WebElement item : fonts) {
+			System.out.println(fonts.indexOf(item) + " - " + item.getText());
+		}
+		
+		System.out.println(fonts.get(3).getText());
+		
+		Thread.sleep(10000);
+		
+		assertEquals(result,fonts.get(3).getText());
+	
+	}
+	
 	@Test
 	public void registerUser() throws InterruptedException {
 		//Escenario 1: Registrar un usuario
@@ -99,30 +128,6 @@ public class RegisterTest {
 		Thread.sleep(10000);
 
 		//assertEquals("1", "1");
-	}
-	
-	@Test
-	public void loginUser() throws InterruptedException {
-		
-		driver.findElement(HOME_LOC).click();
-		driver.findElement(LOGIN_USER_LOC).sendKeys(USERNAME);
-		driver.findElement(LOGIN_PASS_LOC).sendKeys(PASSWORD);
-		driver.findElement(LOGIN_BTN).click();
-		
-		List<WebElement> fonts = driver.findElements(By.tagName("font"));
-		
-		String result = "Thank you for Loggin.";
-		
-		for(WebElement item : fonts) {
-			System.out.println(fonts.indexOf(item) + " - " + item.getText());
-		}
-		
-		System.out.println(fonts.get(3).getText());
-		
-		assertEquals(result,fonts.get(3).getText());
-
-		
-		Thread.sleep(10000);		
 	}
 
 }
