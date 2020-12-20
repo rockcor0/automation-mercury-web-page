@@ -15,6 +15,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 
 /**
@@ -125,9 +127,10 @@ public class RegisterTest {
 			System.out.print("Register page was not found");
 		}
 		
-		Thread.sleep(10000);
-
-		//assertEquals("1", "1");
+		//Explicit wait
+		WebDriverWait ewait = new WebDriverWait(driver, 10);
+		ewait.until(ExpectedConditions.titleContains("Register: Mercury Tours"));
+		
 	}
 
 }
