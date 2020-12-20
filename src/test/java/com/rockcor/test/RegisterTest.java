@@ -34,6 +34,11 @@ public class RegisterTest {
 	private final static By REGISTER_CONF_PASSWORD_LOC = By.cssSelector("input[name='confirmPassword']");
 	private final static By REGISTER_SUBMIT = By.name("submit");
 	
+	private final static By HOME_LOC = By.linkText("Home");
+	private final static By LOGIN_USER_LOC = By.name("userName");
+	private final static By LOGIN_PASS_LOC = By.name("password");
+	private final static By LOGIN_BTN = By.name("submit");
+	
 	private final static String USERNAME = "qualityAdmin123!=";
 	private final static String PASSWORD = "qualityAdmin123!=";
 	
@@ -69,7 +74,6 @@ public class RegisterTest {
 		Thread.sleep(2000);
 		
 		if( driver.findElement(REGISTER_PAGE_LOC).isDisplayed() ) {
-			System.out.print("Encontrado");
 			
 			driver.findElement(REGISTER_EMAIL_LOC).sendKeys(USERNAME);
 			driver.findElement(REGISTER_PASSWORD_LOC).sendKeys(PASSWORD);
@@ -94,11 +98,31 @@ public class RegisterTest {
 		
 		Thread.sleep(10000);
 
+		//assertEquals("1", "1");
+	}
+	
+	@Test
+	public void loginUser() throws InterruptedException {
 		
-		driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
+		driver.findElement(HOME_LOC).click();
+		driver.findElement(LOGIN_USER_LOC).sendKeys(USERNAME);
+		driver.findElement(LOGIN_PASS_LOC).sendKeys(PASSWORD);
+		driver.findElement(LOGIN_BTN).click();
+		
+		List<WebElement> fonts = driver.findElements(By.tagName("font"));
+		
+		String result = "Thank you for Loggin.";
+		
+		for(WebElement item : fonts) {
+			System.out.println(fonts.indexOf(item) + " - " + item.getText());
+		}
+		
+		System.out.println(fonts.get(3).getText());
+		
+		assertEquals(result,fonts.get(3).getText());
 
 		
-		assertEquals("1", "1");
+		Thread.sleep(10000);		
 	}
 
 }
